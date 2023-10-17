@@ -80,7 +80,7 @@ const Master = () => {
     const handleRowElementChange = (e, rowIndex, field) => {
         let { type, value } = e.target;
         if (type == 'select-one' && tableRows.find(a => a.itemId == value)) {
-            alert("Please Choose another value")
+            alert("Please Choose another value already selected this value !")
             e.target.value = "";
             tableRows[rowIndex].itemId = 0
         }

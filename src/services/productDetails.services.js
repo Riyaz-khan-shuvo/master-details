@@ -1,3 +1,22 @@
+async function getAllPurchaseInfo() {
+
+    try {
+        const response = await fetch(`http://localhost:5283/api/Purchase/search?pageSize=35`);
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: `);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+
+
+
+
 async function addPurchaseInfo(data) {
     const newData = { ...data, userId: 1 }
     console.log(newData);
@@ -69,5 +88,6 @@ export {
     addPurchaseInfo,
     getSupplierDropdown,
     getCompanyDropdown,
-    getItemDropdown
+    getItemDropdown,
+    getAllPurchaseInfo
 }
