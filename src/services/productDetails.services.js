@@ -84,10 +84,30 @@ async function getItemDropdown() {
     }
 }
 
+async function getSinglePurchase(id) {
+
+    try {
+        const response = await fetch(`http://localhost:5283/api/Purchase/${id}`);
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: `);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+
+
+
+
 export {
     addPurchaseInfo,
     getSupplierDropdown,
     getCompanyDropdown,
     getItemDropdown,
-    getAllPurchaseInfo
+    getAllPurchaseInfo,
+    getSinglePurchase
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { addPurchaseInfo, getCompanyDropdown, getItemDropdown, getSupplierDropdown } from '../../services/productDetails.services';
+import { useRouter } from 'next/router';
 
 
 
@@ -69,6 +70,8 @@ const Master = () => {
         getItem()
     }, [])
 
+    const router = useRouter()
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPurchaseData({
@@ -80,7 +83,7 @@ const Master = () => {
     const handleRowElementChange = (e, rowIndex, field) => {
         let { type, value } = e.target;
         if (type == 'select-one' && tableRows.find(a => a.itemId == value)) {
-            alert("Please Choose another value already selected this value !")
+            alert("Please Choose another value this value has already selected !")
             e.target.value = "";
             tableRows[rowIndex].itemId = 0
         }
@@ -98,11 +101,10 @@ const Master = () => {
                 ...purchaseData,
                 purchaseItems: [...tableRows]
             }
-            console.log(allInfo);
             const addPurchase = await addPurchaseInfo(allInfo);
             console.log(addPurchase);
             e.target.reset()
-            // router.push("/admin/employee")
+            router.push("/master-details")
         } catch (error) {
             console.error('Error adding:', error);
         }

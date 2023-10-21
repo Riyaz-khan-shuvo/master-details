@@ -83,8 +83,8 @@ const MasterDetailsIndex = () => {
                                                         <td> {da.poNumber} </td>
                                                         <td>
                                                         <td>
-                                                                <Link href={`employee/edit/${da.id}`} className='btn btn-sm me-3 btn-success'> Edit </Link>
-                                                                <Link href={`employee/details/${da.id}`} className='btn btn-sm me-3 btn-primary'> Details</Link>
+                                                                <Link href={`master-details/edit/${da.id}`} className='btn btn-sm me-3 btn-success'> Edit </Link>
+                                                                <Link href={`master-details/details/${da.id}`} className='btn btn-sm me-3 btn-primary'> Details</Link>
                                                                 <Button
                                                                     className='btn btn-sm btn-danger'
                                                                     // onClick={() => handleDelete(da.id)}
