@@ -1,4 +1,4 @@
-name: Deploy Next.js site to Pages
+name: 🚅 Build and Deploy [ubuntu-latest, windows-latest, macOS-latest] Next.js site to Pages
 
 on:
   push:
@@ -71,7 +71,7 @@ jobs:
 
   # Deployment job
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs:
       - build-ubuntu
       - build-windows
