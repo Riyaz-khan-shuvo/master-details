@@ -69,15 +69,4 @@ jobs:
           static_site_generator: next
       # Rest of the build steps...
 
-  # Add the deployment job here (similar to your original workflow)
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build-ubuntu
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
