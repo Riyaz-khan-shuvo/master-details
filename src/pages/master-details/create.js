@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { addPurchaseInfo, getCompanyDropdown, getItemDropdown, getSupplierDropdown } from '../../services/productDetails.services';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 
@@ -144,8 +145,13 @@ const Master = () => {
                     <section className="container-fluid">
                         <div className="">
                             <div className="card">
-                                <div className="card-header">
-                                    <h3 className="card-title">Purchase</h3>
+                                <div className="card-header d-flex justify-content-between">
+                                    <div>
+                                        <Link className='btn btn-outline-secondary' href={'/master-details'}> Back </Link>
+                                    </div>
+                                    <div>
+                                        <h3 className="card-title">Purchase</h3>
+                                    </div>
                                 </div>
                                 <form onSubmit={(e) => handleSubmit(e)}>
                                     <div className="card-body">
@@ -202,7 +208,7 @@ const Master = () => {
                                                         Supplier
                                                     </label>
                                                     <div className="col">
-                                                        <select onChange={(e) => handleChange(e)} className="form-select" name="supplierId" id="">
+                                                        <select onChange={(e) => handleChange(e)} className="form-select" name="supplierId"  >
                                                             <option value=" ">Select Supplier </option>
                                                             {
                                                                 supplier.data.data.map((data, index) => <option value={data.id} key={index}> {data.supplierName} </option>)
@@ -218,7 +224,7 @@ const Master = () => {
                                                         Company
                                                     </label>
                                                     <div className="col">
-                                                        <select onChange={(e) => handleChange(e)} className="form-select" name="companyId" id="">
+                                                        <select onChange={(e) => handleChange(e)} className="form-select" name="companyId"  >
                                                             <option value=" ">Select Company </option>
                                                             {
                                                                 company.data.data.map((data, index) => <option value={data.id} key={index}> {data.companyName} </option>)
@@ -334,7 +340,7 @@ const Master = () => {
                                                             <div className="row mb-2">
 
                                                                 <div className="col">
-                                                                    <select onChange={(e) => handleRowElementChange(e, rowIndex, 'itemId')} className="form-select" name="itemId" id="">
+                                                                    <select onChange={(e) => handleRowElementChange(e, rowIndex, 'itemId')} className="form-select" name="itemId"  >
                                                                         <option value="">Select Items </option>
                                                                         {
                                                                             item.data.data.map((data, index) => <option value={data.id} key={index}> {data.itemName} </option>)
@@ -422,7 +428,7 @@ const Master = () => {
                                                 {/* <div className="row mb-2">
                                                     <label className="col-md-3 col-form-label" htmlFor="zipCode">Company </label>
                                                     <div className="col">
-                                                        <select className="form-select" name="companyId" id="">
+                                                        <select className="form-select" name="companyId"  >
                                                             <option value=" ">Select Company </option>
                                                         </select>
                                                     </div>

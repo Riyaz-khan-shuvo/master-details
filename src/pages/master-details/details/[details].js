@@ -146,39 +146,43 @@ const MasterDetails = () => {
                                         </div>
 
                                         {
-                                            data.data.purchaseItems.length>0?<Table>
-                                            <thead >
-                                                <tr className="table-dark">
-                                                    <th>#</th>
-                                                    <th>Item Id </th>
-                                                    <th>Batch Number </th>
-                                                    <th>Quantity </th>
-                                                    <th>Purchase Price </th>
-                                                    <th>Sell Price </th>
+                                            data.data.purchaseItems.length > 0 ?
+                                                <div className="col-md-12">
+                                                    <Table>
+                                                        <thead >
+                                                            <tr className="table-dark">
+                                                                <th>#</th>
+                                                                <th>Item Id </th>
+                                                                <th>Batch Number </th>
+                                                                <th>Quantity </th>
+                                                                <th>Purchase Price </th>
+                                                                <th>Sell Price </th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    data.data.purchaseItems != undefined && data.data.purchaseItems.map((da, index) =>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {
+                                                                data.data.purchaseItems != undefined && data.data.purchaseItems.map((da, index) =>
 
-                                                        <tr key={index}>
-                                                            <td> {index + 1} </td>
-                                                            <td> {da.itemId} </td>
-                                                            <td> {da.batchNumber} </td>
-                                                            <td> {da.quantity} </td>
-                                                            <td> {da.purchasesPrice} </td>
-                                                            <td> {da.sellPrice} </td>
-                                                            
-                                                        </tr>
+                                                                    <tr key={index}>
+                                                                        <td> {index + 1} </td>
+                                                                        <td> {da.itemId} </td>
+                                                                        <td> {da.batchNumber} </td>
+                                                                        <td> {da.quantity} </td>
+                                                                        <td> {da.purchasesPrice} </td>
+                                                                        <td> {da.sellPrice} </td>
 
-                                                    )
-                                                }
+                                                                    </tr>
+
+                                                                )
+                                                            }
 
 
-                                            </tbody>
+                                                        </tbody>
 
-                                        </Table>:null
+                                                    </Table>
+                                                </div>
+                                                : null
                                         }
                                     </div>
                                 </div>
@@ -188,7 +192,7 @@ const MasterDetails = () => {
                                         <Link className="btn btn-outline-danger btn-sm me-3" href="/master-details">
                                             Master Details
                                         </Link>
-                                        <Link className="btn btn-outline-primary btn-sm me-3" href={`/admin/employee/edit/${id}`}>
+                                        <Link className="btn btn-outline-primary btn-sm me-3" href={`/master-details/edit/${id}`}>
                                             Edit
                                         </Link>
                                     </div>

@@ -55,7 +55,7 @@ const MasterDetailsIndex = () => {
                                     </div>
                                     <div>
                                         <label htmlFor="" className='me-3'> Search  </label>
-                                        <input type="text" onChange={(e) => handleSearch(e)} name="search" id="" />
+                                        <input type="text" onChange={(e) => handleSearch(e)} name="search"   />
                                     </div>
                                 </div>
                                 <div className='emp-table' >

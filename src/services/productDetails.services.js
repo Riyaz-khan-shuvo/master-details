@@ -1,7 +1,9 @@
+import { apiUrl } from "../environments/environment";
+
 async function getAllPurchaseInfo() {
 
     try {
-        const response = await fetch(`http://localhost:5283/api/Purchase/search?pageSize=35`);
+        const response = await fetch(`${apiUrl}/Purchase/search?pageSize=35`);
 
         if (!response.ok) {
             throw new Error(`Network response was not ok: `);
@@ -21,7 +23,7 @@ async function addPurchaseInfo(data) {
     const newData = { ...data, userId: 1 }
     console.log(newData);
     try {
-        const response = await fetch(`http://localhost:5283/api/Purchase`, {
+        const response = await fetch(`${apiUrl}/Purchase`, {
             method: 'POST',
             headers: {
                 "content-type": "application/json"
@@ -42,7 +44,7 @@ async function addPurchaseInfo(data) {
 async function getSupplierDropdown() {
 
     try {
-        const response = await fetch(`http://localhost:5283/api/Supplier/dropdown`);
+        const response = await fetch(`${apiUrl}/Supplier/dropdown`);
 
         if (!response.ok) {
             throw new Error(`Network response was not ok: `);
@@ -57,7 +59,7 @@ async function getSupplierDropdown() {
 async function getCompanyDropdown() {
 
     try {
-        const response = await fetch(`http://localhost:5283/api/Company/dropdown`);
+        const response = await fetch(`${apiUrl}/Company/dropdown`);
 
         if (!response.ok) {
             throw new Error(`Network response was not ok: `);
@@ -72,7 +74,7 @@ async function getCompanyDropdown() {
 async function getItemDropdown() {
 
     try {
-        const response = await fetch(`http://localhost:5283/api/Item/dropdown`);
+        const response = await fetch(`${apiUrl}/Item/dropdown`);
 
         if (!response.ok) {
             throw new Error(`Network response was not ok: `);
@@ -87,7 +89,7 @@ async function getItemDropdown() {
 async function getSinglePurchase(id) {
 
     try {
-        const response = await fetch(`http://localhost:5283/api/Purchase/${id}`);
+        const response = await fetch(`${apiUrl}/Purchase/${id}`);
 
         if (!response.ok) {
             throw new Error(`Network response was not ok: `);
@@ -100,6 +102,26 @@ async function getSinglePurchase(id) {
 }
 
 
+async function editPurchasesInfo(id , purchaseInfo) {
+
+    try {
+        const response = await fetch(`${apiUrl}/Purchase/${id}`, {
+            method: 'PUT',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(purchaseInfo),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: `);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error adding Employee:', error);
+        throw error;
+    }
+}
 
 
 
@@ -109,5 +131,6 @@ export {
     getCompanyDropdown,
     getItemDropdown,
     getAllPurchaseInfo,
-    getSinglePurchase
+    getSinglePurchase,
+    editPurchasesInfo
 }

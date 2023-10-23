@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getCompanyDropdown, getItemDropdown, getSinglePurchase, getSupplierDropdown } from '../../../services/productDetails.services';
+import { editPurchasesInfo, getCompanyDropdown, getItemDropdown, getSinglePurchase, getSupplierDropdown } from '../../../services/productDetails.services';
 import { useRouter } from 'next/router';
 import { Button, Table } from 'react-bootstrap';
+import Link from 'next/link';
 
 const MasterDetailsEdit = () => {
 
@@ -100,22 +101,21 @@ const MasterDetailsEdit = () => {
         else {
             const updatedRows = [...purchaseData.purchaseItems];
             updatedRows[rowIndex][field] = value;
-
-            setPurchaseData({ ...purchaseData, updatedRows });
+            setPurchaseData({ ...purchaseData, purchaseItems: updatedRows });
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const allInfo = {
-                ...purchaseData,
-                purchaseItems: [...tableRows]
-            }
-            const addPurchase = await addPurchaseInfo(allInfo);
+            // const allInfo = {
+            //     ...purchaseData,
+            //     purchaseItems: [...tableRows]
+            // }
+            const addPurchase = await editPurchasesInfo(id, purchaseData);
             console.log(addPurchase);
-            e.target.reset()
-            router.push("/master-details")
+            // e.target.reset()
+            // router.push("/master-details")
         } catch (error) {
             console.error('Error adding:', error);
         }
@@ -140,9 +140,9 @@ const MasterDetailsEdit = () => {
     const handleRemoveRow = (rowIndex) => {
 
         if (purchaseData.purchaseItems.length > 1) {
-            const updatedRows = [...purchaseData.purchaseItems];
-            updatedRows.splice(rowIndex, 1);
-            const newPurchaseItems = purchaseData.purchaseItems = updatedRows
+            const purchaseItems = [...purchaseData.purchaseItems];
+            purchaseItems.splice(rowIndex, 1);
+            const newPurchaseItems = purchaseData.purchaseItems = purchaseItems
             setPurchaseData({ ...purchaseData, newPurchaseItems });
         } else {
             alert("At least one table will show");
@@ -158,9 +158,14 @@ const MasterDetailsEdit = () => {
                             <section className="container-fluid">
                                 <div className="">
                                     <div className="card">
-                                        <div className="card-header">
-                                            <h3 className="card-title">Purchase</h3>
-                                        </div>
+                                    <div className="card-header d-flex justify-content-between">
+                                    <div>
+                                        <Link className='btn btn-outline-secondary' href={'/master-details'}> Back </Link>
+                                    </div>
+                                    <div>
+                                        <h3 className="card-title">Purchase Edit</h3>
+                                    </div>
+                                </div>
                                         <form onSubmit={(e) => handleSubmit(e)}>
                                             <div className="card-body">
                                                 <div className="row mt-2">
@@ -219,7 +224,7 @@ const MasterDetailsEdit = () => {
                                                                 Supplier
                                                             </label>
                                                             <div className="col">
-                                                                <select value={purchaseData.supplierId} onChange={(e) => handleChange(e)} className="form-select" name="supplierId" id="">
+                                                                <select value={purchaseData.supplierId} onChange={(e) => handleChange(e)} className="form-select" name="supplierId">
                                                                     <option value=" ">Select Supplier </option>
                                                                     {
                                                                         supplier.data.data.map((data, index) => <option value={data.id} key={index}> {data.supplierName} </option>)
@@ -235,7 +240,7 @@ const MasterDetailsEdit = () => {
                                                                 Company
                                                             </label>
                                                             <div className="col">
-                                                                <select value={purchaseData.companyId} onChange={(e) => handleChange(e)} className="form-select" name="companyId" id="">
+                                                                <select value={purchaseData.companyId} onChange={(e) => handleChange(e)} className="form-select" name="companyId" >
                                                                     <option value=" ">Select Company </option>
                                                                     {
                                                                         company.data.data.map((data, index) => <option value={data.id} key={index}> {data.companyName} </option>)
@@ -355,7 +360,7 @@ const MasterDetailsEdit = () => {
                                                                 <td>
                                                                     <div className="row mb-2">
                                                                         <div className="col">
-                                                                            <select value={row.itemId} onChange={(e) => handleRowElementChange(e, rowIndex, 'itemId')} className="form-select" name="itemId" id="">
+                                                                            <select value={row.itemId} onChange={(e) => handleRowElementChange(e, rowIndex, 'itemId')} className="form-select" name="itemId">
                                                                                 <option value="">Select Items </option>
                                                                                 {
                                                                                     item.data.data.map((data, index) => <option value={data.id} key={index}> {data.itemName} </option>)
