@@ -69,6 +69,7 @@ jobs:
           static_site_generator: next
       # Rest of the build steps...
 
+
   # Deployment job
   # deploy:
   #   runs-on: windows-latest
