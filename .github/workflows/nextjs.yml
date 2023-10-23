@@ -1,4 +1,4 @@
-name: 🚅 Build and Deploy [ubuntu-latest, windows-latest, macOS-latest] Next.js site to Pages
+name: Deploy Next.js site to Pages
 
 on:
   push:
