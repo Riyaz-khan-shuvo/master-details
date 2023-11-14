@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { editPurchasesInfo, getCompanyDropdown, getItemDropdown, getSinglePurchase, getSupplierDropdown } from '../../../services/productDetails.services';
+import { deletePurchaseDetails, editPurchasesInfo, getCompanyDropdown, getItemDropdown, getSinglePurchase, getSupplierDropdown } from '../../../services/productDetails.services';
 import { useRouter } from 'next/router';
 import { Button, Table } from 'react-bootstrap';
 import Link from 'next/link';
@@ -79,7 +79,7 @@ const MasterDetailsEdit = () => {
         }
     }, [id])
 
-    console.log(purchaseData);
+    console.log(purchaseData.purchaseItems);
 
 
 
@@ -108,14 +108,9 @@ const MasterDetailsEdit = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // const allInfo = {
-            //     ...purchaseData,
-            //     purchaseItems: [...tableRows]
-            // }
+
             const addPurchase = await editPurchasesInfo(id, purchaseData);
-            console.log(addPurchase);
-            // e.target.reset()
-            // router.push("/master-details")
+            router.push("/master-details")
         } catch (error) {
             console.error('Error adding:', error);
         }
@@ -137,16 +132,29 @@ const MasterDetailsEdit = () => {
         }
     };
 
-    const handleRemoveRow = (rowIndex) => {
-
+    const handleDeleteRow = async (id) => {
         if (purchaseData.purchaseItems.length > 1) {
-            const purchaseItems = [...purchaseData.purchaseItems];
-            purchaseItems.splice(rowIndex, 1);
-            const newPurchaseItems = purchaseData.purchaseItems = purchaseItems
-            setPurchaseData({ ...purchaseData, newPurchaseItems });
-        } else {
+            // const isConfirm = window.confirm("Are you sure to delete this item ? ");
+            // if (isConfirm) {
+            const deletePurchase = await deletePurchaseDetails(id)
+            if (deletePurchase.isSuccess) {
+                const updatedPurchaseItems = purchaseData.purchaseItems.filter((item) => item.id !== id);
+                setPurchaseData({ ...purchaseData, purchaseItems: updatedPurchaseItems });
+            }
+            // }
+        }
+        else {
             alert("At least one table will show");
         }
+
+        // if (purchaseData.purchaseItems.length > 1) {
+        //     const purchaseItems = [...purchaseData.purchaseItems];
+        //     purchaseItems.splice(rowIndex, 1);
+        //     const newPurchaseItems = purchaseData.purchaseItems = purchaseItems
+        //     setPurchaseData({ ...purchaseData, newPurchaseItems });
+        // } else {
+        //     alert("At least one table will show");
+        // }
     };
 
     return (
@@ -158,14 +166,14 @@ const MasterDetailsEdit = () => {
                             <section className="container-fluid">
                                 <div className="">
                                     <div className="card">
-                                    <div className="card-header d-flex justify-content-between">
-                                    <div>
-                                        <Link className='btn btn-outline-secondary' href={'/master-details'}> Back </Link>
-                                    </div>
-                                    <div>
-                                        <h3 className="card-title">Purchase Edit</h3>
-                                    </div>
-                                </div>
+                                        <div className="card-header d-flex justify-content-between">
+                                            <div>
+                                                <Link className='btn btn-outline-secondary' href={'/master-details'}> Back </Link>
+                                            </div>
+                                            <div>
+                                                <h3 className="card-title">Purchase Edit</h3>
+                                            </div>
+                                        </div>
                                         <form onSubmit={(e) => handleSubmit(e)}>
                                             <div className="card-body">
                                                 <div className="row mt-2">
@@ -421,7 +429,7 @@ const MasterDetailsEdit = () => {
 
                                                                 <td>
                                                                     <Button
-                                                                        onClick={() => handleRemoveRow(rowIndex)}
+                                                                        onClick={() => handleDeleteRow(row.id)}
                                                                         className="btn btn-danger"
                                                                     >
                                                                         -
