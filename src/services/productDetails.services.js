@@ -102,7 +102,7 @@ async function getSinglePurchase(id) {
 }
 
 
-async function editPurchasesInfo(id , purchaseInfo) {
+async function editPurchasesInfo(id, purchaseInfo) {
 
     try {
         const response = await fetch(`${apiUrl}/Purchase/${id}`, {
@@ -124,6 +124,28 @@ async function editPurchasesInfo(id , purchaseInfo) {
 }
 
 
+async function deletePurchaseDetails(id) {
+    try {
+        const response = await fetch(`${apiUrl}/PurchaseItem/${id}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status} - ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error deleting purchase info:', error);
+        throw error;
+    }
+}
+
+
+
+
 
 export {
     addPurchaseInfo,
@@ -132,5 +154,6 @@ export {
     getItemDropdown,
     getAllPurchaseInfo,
     getSinglePurchase,
-    editPurchasesInfo
+    editPurchasesInfo,
+    deletePurchaseDetails
 }
